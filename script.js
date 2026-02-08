@@ -33,3 +33,24 @@ todoInput.addEventListener('keypress', function (e) {
         addTodo();
     }
 });
+// Lấy todos từ localStorage hoặc mảng rỗng
+let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+// Lưu todos vào localStorage
+function saveTodos() {
+    localStorage.setItem('todos', JSON.stringify(todos));
+}
+
+// Render todos ra giao diện
+function renderTodos() {
+    todoList.innerHTML = '';
+    todos.forEach(todo => {
+        const li = document.createElement('li');
+        li.textContent = todo;
+        todoList.appendChild(li);
+    });
+}
+
+// Load todos khi mở trang
+renderTodos();
+
