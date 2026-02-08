@@ -30,9 +30,21 @@ function addTodo() {
         span.textContent = todoText;
         li.appendChild(span);
 
-        // Thêm sự kiện click để chỉnh sửa
-        li.addEventListener('click', function() {
+        // [SỬA ĐỂ THÊM DELETE] - Tạo nút Delete
+        const deleteBtn = document.createElement('button');
+        deleteBtn.innerHTML = '🗑️';
+        deleteBtn.classList.add('delete-btn');
+        li.appendChild(deleteBtn);
+
+        // Thêm sự kiện click để chỉnh sửa (chỉ khi click vào span)
+        span.addEventListener('click', function() {
             enterEditMode(li, span);
+        });
+
+        // [THÊM MỚI] - Thêm sự kiện click cho nút Delete
+        deleteBtn.addEventListener('click', function(e) {
+            e.stopPropagation(); // Ngăn không trigger event của li
+            deleteTodo(li);
         });
 
         // Thêm vào danh sách
@@ -60,6 +72,28 @@ todoInput.addEventListener('keypress', function (e) {
         addTodo();
     }
 });
+
+
+// --- PHẦN 1.5: DELETE TODO (Chức năng xóa) ---
+
+// Hàm xóa công việc
+function deleteTodo(todoItem) {
+    // Hiệu ứng animation trước khi xóa
+    todoItem.style.transition = 'opacity 0.3s ease';
+    todoItem.style.opacity = '0';
+    
+    // Xóa khỏi DOM sau khi animation hoàn thành
+    setTimeout(function() {
+        todoItem.remove();
+        
+        // Nếu đang edit item này thì reset về chế độ thêm mới
+        if (editingItem === todoItem) {
+            editingItem = null;
+            addBtn.textContent = 'Thêm';
+            todoInput.value = '';
+        }
+    }, 300);
+}
 
 
 // --- PHẦN 2: FILTER - BỘ LỌC ---
