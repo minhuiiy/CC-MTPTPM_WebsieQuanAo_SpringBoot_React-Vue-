@@ -8,13 +8,26 @@
 </head>
 <body>
     <div class="container">
-        <h1>To-Do List</h1>
+        <header>
+            <h1>To-Do List</h1>
+        </header>
+        
         <div class="input-group">
             <input type="text" id="todo-input" placeholder="Nhập công việc...">
-            <button id="add-btn">Thêm</button>
+            <button id="add-btn" type="submit">Thêm</button>
+            
+            <div class="select">
+                <select class="filter-todo">
+                    <option value="all">Tất cả</option>
+                    <option value="completed">Đã xong</option>
+                    <option value="uncompleted">Chưa xong</option>
+                </select>
+            </div>
+            </div>
+
+        <div class="todo-container">
+            <ul id="todo-list" class="todo-list"></ul>
         </div>
-        <ul id="todo-list">
-        </ul>
     </div>
     <script src="script.js"></script>
 </body>
